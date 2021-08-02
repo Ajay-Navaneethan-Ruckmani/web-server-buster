@@ -1,15 +1,26 @@
 #!/bin/bash
 if [ "$1" == "" ]
 then
-echo "You forgot an IP address!"
-echo "Syntax: ./file.sh <ip>"
+    echo "You forgot an IP address!"
+    echo "Syntax: ./file.sh <ip>"
 
 else
- for ports in 80 443; do
-   nmap -p $ports -T5 $1 
-   echo "Completed successfully"
-   echo "-------------------------------------------------------------------------------------------------------------------------"
-  done
+    figlet -c -f slant "buster"
+    for ports in 80 443; do
+        echo $ports
+        nmap -p $ports -T5 $1 | grep open > status
+        if [ -s status ]
+        then
+           echo "file is not empty"
+           echo "starting gobuster"
+	   echo "starting nikto"
+	   nikto -h $1 -p $ports > nikto-$ports.txt &
+	else
+	   echo "file is empty"
+	fi
+        echo "----------------------------------------------------------------------------------------"
+    done
+# nikto -h $1 -p $ports > nikto-scan.txt &
 fi
 
 
