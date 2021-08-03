@@ -39,7 +39,7 @@ else
            echo "Starting Gobuster +++++++++++++++++++++++++++++++++++++++++++++++"
 	   printf "${WHITE}"
 	   nikto -h $1 -p $ports > nikto-$ports.txt &
-	   gobuster dir -u http://$1:$ports -w /usr/share/wordlists/dirb/common.txt -o gobuster-$ports.txt &
+	   gobuster dir -u http://$1:$ports -w /usr/share/wordlists/dirb/common.txt -o gobuster-$ports.txt 
 	else
 	   echo "Web server not found on $PORT"
 	fi
